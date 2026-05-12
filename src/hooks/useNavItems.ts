@@ -18,7 +18,7 @@ export function useNavItems() {
       
       const transformed = (data ?? []).map((item) => {
         if (item.label === 'Cybersecurity') {
-          return { ...item, label: 'Movies', href: '/category/movies' } as NavItem;
+          return { ...item, label: 'Movies', href: '/blog?category=movies' } as NavItem;
         }
         return item;
       });

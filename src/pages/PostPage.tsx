@@ -4,8 +4,9 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
-import { Eye, Calendar, Tag, Download, FileText, MessageSquare } from 'lucide-react';
+import { Eye, Calendar, Tag, Download, FileText, MessageSquare, Share2 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
+import { toast } from '@/hooks/use-toast';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import CommentSection from '@/components/CommentSection';
@@ -53,6 +54,34 @@ export default function PostPage() {
 
   const downloadPDF = () => {
     window.print();
+  };
+
+  const sharePost = async () => {
+    if (!post) return;
+    const url = `${window.location.origin}/blog/${post.slug}`;
+    const shareData = {
+      title: post.title,
+      text: post.excerpt?.trim() || post.title,
+      url,
+    };
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch (err) {
+        if (err instanceof DOMException && err.name === 'AbortError') return;
+      }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      toast({ title: 'Link copied', description: 'Post URL copied to your clipboard.' });
+    } catch {
+      toast({
+        title: 'Could not share',
+        description: 'Copy the address from your browser’s location bar.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const date = post?.published_at
@@ -191,6 +220,14 @@ export default function PostPage() {
             >
               <Download className="h-4 w-4" />
               Download as PDF
+            </button>
+            <button
+              type="button"
+              onClick={sharePost}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-body font-medium border border-border rounded-lg text-foreground hover:border-primary hover:text-primary transition-colors duration-200"
+            >
+              <Share2 className="h-4 w-4" />
+              Share Post
             </button>
           </div>
 
