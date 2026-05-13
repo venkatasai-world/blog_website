@@ -16,6 +16,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard.tsx";
 import AdminPosts from "./pages/admin/AdminPosts.tsx";
 import PostEditor from "./pages/admin/PostEditor.tsx";
 import AdminCategories from "./pages/admin/AdminCategories.tsx";
+import AdminDeployments from "./pages/admin/AdminDeployments.tsx";
 import AdminNavigation from "./pages/admin/AdminNavigation.tsx";
 import AdminComments from "./pages/admin/AdminComments.tsx";
 import AdminMessages from "./pages/admin/AdminMessages.tsx";
@@ -45,6 +46,7 @@ const App = () => (
           <Route path="/admin/posts/new" element={<PostEditor />} />
           <Route path="/admin/posts/:id/edit" element={<PostEditor />} />
           <Route path="/admin/categories" element={<AdminCategories />} />
+          <Route path="/admin/deployments" element={<AdminDeployments />} />
           <Route path="/admin/navigation" element={<AdminNavigation />} />
           <Route path="/admin/comments" element={<AdminComments />} />
           <Route path="/admin/messages" element={<AdminMessages />} />

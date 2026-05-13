@@ -3,7 +3,7 @@ import { Navigate, Link, useLocation } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import {
   LayoutDashboard, FileText, Tag, Navigation, MessageSquare, Mail,
-  LogOut, Menu, X, ChevronRight, PenSquare
+  Cloud, LogOut, Menu, X, ChevronRight, PenSquare
 } from 'lucide-react';
 import { Loader2 } from 'lucide-react';
 
@@ -12,6 +12,7 @@ const navLinks = [
   { href: '/admin/posts', label: 'Posts', icon: FileText },
   { href: '/admin/posts/new', label: 'New Post', icon: PenSquare },
   { href: '/admin/categories', label: 'Categories', icon: Tag },
+  { href: '/admin/deployments', label: 'Deployments', icon: Cloud },
   { href: '/admin/navigation', label: 'Navigation', icon: Navigation },
   { href: '/admin/comments', label: 'Comments', icon: MessageSquare },
   { href: '/admin/messages', label: 'Messages', icon: Mail },
