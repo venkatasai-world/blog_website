@@ -58,7 +58,7 @@ export default function PostPage() {
 
   const sharePost = async () => {
     if (!post) return;
-    const url = `${window.location.origin}/blog/${post.slug}`;
+    const url = window.location.href;
     const shareData = {
       title: post.title,
       text: post.excerpt?.trim() || post.title,
@@ -75,10 +75,14 @@ export default function PostPage() {
     try {
       await navigator.clipboard.writeText(url);
       toast({ title: 'Link copied', description: 'Post URL copied to your clipboard.' });
+      return;
     } catch {
+      if (typeof window !== 'undefined') {
+        window.prompt('Copy this post link:', url);
+      }
       toast({
-        title: 'Could not share',
-        description: 'Copy the address from your browser’s location bar.',
+        title: 'Share fallback',
+        description: 'Copy the post URL from the prompt or your browser address bar.',
         variant: 'destructive',
       });
     }
